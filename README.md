@@ -16,6 +16,7 @@ Then, if your font file have different size or glyph count, you need to edit the
 Edit both `shaders/composite1.fsh` and `shaders/final.fsh`, change `const ivec2 CharSize = ivec2(8, 16);` to your font file glyph size, edit `const ivec2 CharArrange = ivec2(16, 16);` to your font file's rows and columns. Make sure both of the file were changed. That's all.
 
 # Example of this shader
+https://youtu.be/dGv6yr2_Cm0
 
 ![Demo 1](https://github.com/0xAA55/font-shader-1.0.0/blob/master/Demo/1.png?raw=true)
 
