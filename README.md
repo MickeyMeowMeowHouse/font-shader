@@ -28,7 +28,7 @@ https://youtu.be/dGv6yr2_Cm0
 https://www.shadertoy.com/view/tlfXzX
 
 # How to install this shader pack
-Make sure you had optifine installed, then goto your Minecraft folder (which often is "C:\Users\yourname\AppData\Roaming\.minecraft"), you can see there's a folder named **shaderpacks**. Open this folder, create a new subfolder named "font-shader-1.0.0", then put **"shaders"** folder and **"LICENSE"** file inside this subfolder. Be sure you had read the LICENSE file and agree with it.
+Make sure you had optifine installed, then goto your Minecraft folder (which often is "C:\Users\yourname\AppData\Roaming\\.minecraft"), you can see there's a folder named **shaderpacks**. Open this folder, create a new subfolder named "font-shader-1.0.0", then put **"shaders"** folder and **"LICENSE"** file inside this subfolder. Be sure you had read the LICENSE file and agree with it.
 
 # How to install optifine
 You need [install Java](https://www.java.com/) first. Then goto [optifine](https://optifine.net/home) official website to download and install optifine for minecraft.
