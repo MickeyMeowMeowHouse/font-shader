@@ -1,6 +1,7 @@
+#version 130
 
-varying vec4 texCoord;
-varying vec4 color;
+out vec4 texCoord;
+out vec4 color;
 
 void main()
 {

@@ -1,10 +1,11 @@
+#version 130
 
-varying vec4 texCoord;
-varying vec4 color;
+out vec2 texCoord;
+out vec4 color;
 
 void main()
 {
 	color = gl_Color;
 	gl_Position = gl_ModelViewProjectionMatrix * gl_Vertex;
-	texCoord = gl_MultiTexCoord0;
+	texCoord = gl_MultiTexCoord0.xy;
 }

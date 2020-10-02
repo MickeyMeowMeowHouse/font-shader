@@ -1,11 +1,12 @@
+#version 130
 
 uniform sampler2D texture;
 uniform sampler2D lightmap;
 uniform vec4 entityColor;
 
-varying vec2 texCoord;
-varying vec2 lmCoord;
-varying vec4 color;
+in vec2 texCoord;
+in vec2 lmCoord;
+in vec4 color;
 
 void main()
 {

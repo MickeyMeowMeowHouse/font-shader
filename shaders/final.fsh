@@ -1,3 +1,4 @@
+#version 130
 
 uniform sampler2D colortex0;
 uniform sampler2D colortex1;
@@ -10,7 +11,7 @@ uniform sampler2D colortex7;
 
 uniform float viewWidth;
 uniform float viewHeight;
-varying vec2 texCoord;
+in vec2 texCoord;
 vec2 Resolution = vec2(viewWidth, viewHeight);
 vec2 fragCoord = texCoord * Resolution;
 const ivec2 CharSize = ivec2(8, 16);
@@ -34,9 +35,10 @@ vec4 GetOrigColor()
 	return texelFetch(colortex0, OrigUV, 0);
 }
 
-vec4 LevelColor(vec4 Color, float level)
+vec4 LimitColor(vec4 Color, int Depth)
 {
-    return clamp(floor(Color * level) / (level - 1.0), 0.0, 1.0);
+	vec4 Curved = pow(Color, vec4(0.75));
+    return clamp(vec4(ivec4(Curved * (float(Depth) + 0.5))) / vec4(Depth), 0.0, 1.0);
 }
 
 void main()
@@ -62,5 +64,5 @@ void main()
     {
     	CharSample = vec4(1) - CharSample;
     }
-    gl_FragColor = CharSample * LevelColor(GetOrigColor(), 3.0);
+    gl_FragColor = CharSample * LimitColor(GetOrigColor(), 2);
 }

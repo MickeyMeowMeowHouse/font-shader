@@ -1,3 +1,4 @@
+#version 130
 
 uniform sampler2D colortex0;
 uniform sampler2D colortex1;
@@ -11,7 +12,7 @@ uniform sampler2D colortex7;
 uniform float viewWidth;
 uniform float viewHeight;
 uniform int frameCounter;
-varying vec2 texCoord;
+in vec2 texCoord;
 vec2 Resolution = vec2(viewWidth, viewHeight);
 vec2 fragCoord = texCoord * Resolution;
 const ivec2 CharSize = ivec2(8, 16);
@@ -34,9 +35,9 @@ bool CharBlackList(int CharCode)
 	{
 	default:
 		return false;
-	//case 176:
-	//case 177:
-	//case 178:
+	// case 176:
+	// case 177:
+	// case 178:
 		return true;
 	}
 }
@@ -46,17 +47,19 @@ void main()
 	float ConvMaxScore = -10000.0;
 	int MaxScoreChar = 0;
 	bool MaxIsInverted = false;
-	if(CharCount == 0) CharCount = 1;
+	if(CharCount == 0)
+	{
+		if(BlockId + MIN_CHAR <= MAX_CHAR)
+			CharCount = 1;
+	}
 	for(int i = 0; i < CharCount; i++)
 	{
 		int CharCode = i * BlockCount + BlockId + MIN_CHAR;
 		if(CharCode > MAX_CHAR) break;
-		// CharCode = (CharCode + frameCounter) % (MAX_CHAR - MIN_CHAR) + MIN_CHAR;
 		ivec2 CharOrigin = ivec2(CharCode % CharArrange.x, CharCode / CharArrange.x) * CharSize;
 		float ConvScore = 0.0;
 		float CharScore = 0.0;
-		float LumScore1 = 0.0;
-		float LumScore2 = 0.0;
+		float LumScore = 0.0;
 		for(int y = 0; y < CharSize.y; y ++)
 		{
 			for(int x = 0; x < CharSize.x; x ++)
@@ -64,13 +67,13 @@ void main()
 				ivec2 xy = ivec2(x, y);
 				ivec2 CharTexCoord = CharOrigin + ivec2(x, CharSize.y - 1 - y);
 				ivec2 SceneTexCoord = CharPos * CharSize + xy;
-                float EdgeSample = texelFetch(colortex1, SceneTexCoord, 0).r - 0.5;
+				vec4 SceneSample = texelFetch(colortex1, SceneTexCoord, 0);
+                float Edge = SceneSample.r - 0.5;
+                float Gray = SceneSample.g - 0.5;
 				float CharSample = texelFetch(colortex2, CharTexCoord, 0).r - 0.5;
-                float SceneSample = length(texelFetch(colortex0, SceneTexCoord, 0).rgb) - 0.5;
 				CharScore += CharSample + 0.5;
-				ConvScore += CharSample * EdgeSample;
-				LumScore1 += CharSample * SceneSample;
-				LumScore2 -= CharSample * SceneSample;
+				ConvScore += CharSample * Edge;
+				LumScore += CharSample * Gray;
 			}
 		}
 
@@ -80,7 +83,7 @@ void main()
 	        {
 	            ConvMaxScore = ConvScore;
 	            MaxScoreChar = CharCode;
-	            MaxIsInverted = (LumScore2 >= LumScore1);
+	            MaxIsInverted = (LumScore < 0.0);
 	        }
 	    }
 	}

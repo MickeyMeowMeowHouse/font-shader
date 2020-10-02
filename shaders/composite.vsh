@@ -1,5 +1,6 @@
+#version 130
 
-varying vec2 texCoord;
+out vec2 texCoord;
 
 void main()
 {

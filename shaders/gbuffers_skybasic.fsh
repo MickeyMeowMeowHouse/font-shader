@@ -1,8 +1,9 @@
+#version 130
 
 uniform sampler2D texture;
 
-varying vec4 texCoord;
-varying vec4 color;
+in vec4 texCoord;
+in vec4 color;
 
 void main()
 {
