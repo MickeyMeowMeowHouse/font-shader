@@ -20,9 +20,11 @@ Edit both `shaders/composite1.fsh` and `shaders/final.fsh`, change `const ivec2 
 https://youtu.be/dGv6yr2_Cm0
 
 ## Screenshots
-![Demo 1](https://github.com/0xAA55/font-shader-1.0.0/blob/master/Demo/1.png?raw=true)
+![Demo 1](Demo/1.png?raw=true)
 
-![Demo 2](https://github.com/0xAA55/font-shader-1.0.0/blob/master/Demo/2.png?raw=true)
+![Demo 2](Demo/2.png?raw=true)
+
+![Demo 3](Demo/3.png?raw=true)
 
 ## Also check this:
 https://www.shadertoy.com/view/tlfXzX
