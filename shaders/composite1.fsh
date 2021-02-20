@@ -59,7 +59,6 @@ void main()
 		ivec2 CharOrigin = ivec2(CharCode % CharArrange.x, CharCode / CharArrange.x) * CharSize;
 		float ConvScore = 0.0;
 		float CharScore = 0.0;
-		float LumScore = 0.0;
 		for(int y = 0; y < CharSize.y; y ++)
 		{
 			for(int x = 0; x < CharSize.x; x ++)
@@ -68,28 +67,26 @@ void main()
 				ivec2 CharTexCoord = CharOrigin + ivec2(x, CharSize.y - 1 - y);
 				ivec2 SceneTexCoord = CharPos * CharSize + xy;
 				vec4 SceneSample = texelFetch(colortex1, SceneTexCoord, 0);
-                float Edge = SceneSample.r - 0.5;
-                float Gray = SceneSample.g - 0.5;
+                float Gray = SceneSample.r - 0.5;
 				float CharSample = texelFetch(colortex2, CharTexCoord, 0).r - 0.5;
-				CharScore += CharSample + 0.5;
-				ConvScore += CharSample * Edge;
-				LumScore += CharSample * Gray;
+				CharScore += CharSample * CharSample;
+				ConvScore += CharSample * Gray;
 			}
 		}
 
-		if(int(CharScore) != 0 && int(CharScore) != int(CharArea) && !CharBlackList(CharCode))
+		if(int(CharScore) != int(CharArea) && !CharBlackList(CharCode))
 		{
+			ConvScore /= sqrt(CharScore);
 	        if (ConvScore >= ConvMaxScore)
 	        {
 	            ConvMaxScore = ConvScore;
 	            MaxScoreChar = CharCode;
-	            MaxIsInverted = (LumScore < 0.0);
 	        }
 	    }
 	}
 
 	gl_FragData[0] = texture2D(colortex0, texCoord);
-	gl_FragData[1] = vec4(float(MaxScoreChar) / float(MAX_CHAR), ConvMaxScore / CharArea, float(MAX_CHAR) / 255.0, MaxIsInverted ? 1.0 : 0.0);
+	gl_FragData[1] = vec4(float(MaxScoreChar) / float(MAX_CHAR), ConvMaxScore / CharArea, float(MAX_CHAR) / 255.0, 0.0);
 	gl_FragData[2] = texelFetch(colortex2, ivec2(fragCoord), 0);
 	gl_FragData[3] = texture2D(colortex1, texCoord);
 }
