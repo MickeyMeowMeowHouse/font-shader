@@ -64,7 +64,7 @@ void main()
     {
     	CharSample = vec4(1) - CharSample;
     }
-    gl_FragColor = CharSample * LimitColor(GetOrigColor(), 2);
+    gl_FragColor = CharSample * LimitColor(GetOrigColor(), 4);
 
     // gl_FragColor = texelFetch(colortex0, ivec2(fragCoord), 0);
 }
