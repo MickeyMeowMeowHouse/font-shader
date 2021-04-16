@@ -9,6 +9,9 @@ uniform sampler2D colortex5;
 uniform sampler2D colortex6;
 uniform sampler2D colortex7;
 
+const int RGBA32F = 0;
+const int gaux1Format = RGBA32F;
+
 uniform float viewWidth;
 uniform float viewHeight;
 uniform int frameCounter;
@@ -86,7 +89,8 @@ void main()
 	}
 
 	gl_FragData[0] = texture2D(colortex0, texCoord);
-	gl_FragData[1] = vec4(float(MaxScoreChar) / float(MAX_CHAR), ConvMaxScore / CharArea, float(MAX_CHAR) / 255.0, 0.0);
-	gl_FragData[2] = texelFetch(colortex2, ivec2(fragCoord), 0);
-	gl_FragData[3] = texture2D(colortex1, texCoord);
+	gl_FragData[1] = texture2D(colortex1, texCoord);
+	gl_FragData[2] = texture2D(colortex2, texCoord);
+	gl_FragData[3] = texture2D(colortex3, texCoord);
+	gl_FragData[4] = vec4(float(MaxScoreChar), ConvMaxScore, 0.0, 0.0);
 }

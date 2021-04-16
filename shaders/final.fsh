@@ -9,6 +9,9 @@ uniform sampler2D colortex5;
 uniform sampler2D colortex6;
 uniform sampler2D colortex7;
 
+const int RGBA32F = 0;
+const int gaux1Format = RGBA32F;
+
 uniform float viewWidth;
 uniform float viewHeight;
 in vec2 texCoord;
@@ -49,11 +52,11 @@ void main()
     for(int i = 0; i < BlockCount; i++)
     {
         ivec2 BlockPos = ivec2(i % BlockDim.x, i / BlockDim.x);
-        vec4 BlockData = texelFetch(colortex1, ivec2(BlockPos * TextMode + TextScreenPos), 0);
+        vec4 BlockData = texelFetch(colortex4, ivec2(BlockPos * TextMode + TextScreenPos), 0);
         if(BlockData.y > CharScore)
         {
             CharScore = BlockData.y;
-            CharCode = int(BlockData.x * (BlockData.z * 255.0));
+            CharCode = int(BlockData.x);
             IsInverted = (int(BlockData.w) != 0);
         }
     }
