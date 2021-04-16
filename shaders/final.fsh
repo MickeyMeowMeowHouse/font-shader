@@ -17,7 +17,7 @@ uniform float viewHeight;
 in vec2 texCoord;
 vec2 Resolution = vec2(viewWidth, viewHeight);
 vec2 fragCoord = texCoord * Resolution;
-const ivec2 CharSize = ivec2(12, 12);
+const ivec2 CharSize = ivec2(16, 16);
 const ivec2 CharArrange = ivec2(138, 49);
 ivec2 TextMode = ivec2(Resolution) / CharSize;
 ivec2 BlockDim = ivec2(Resolution) / TextMode;
@@ -56,7 +56,6 @@ void main()
         if(BlockData.y > CharScore)
         {
             CharScore = BlockData.y;
-            // CharCode = int(BlockData.x * (BlockData.z * 255.0));
             CharCode = int(BlockData.x);
             IsInverted = (int(BlockData.w) != 0);
         }
