@@ -41,7 +41,7 @@ vec4 GetOrigColor()
 vec4 LimitColor(vec4 Color, int Depth)
 {
 	vec4 Curved = pow(Color, vec4(0.75));
-    return clamp(vec4(ivec4(Curved * (float(Depth) + 0.5))) / vec4(Depth), 0.0, 1.0);
+    return clamp(vec4(ivec4(Curved * (float(Depth) - 0.5)) + ivec4(1)) / vec4(Depth), 0.0, 1.0);
 }
 
 void main()
