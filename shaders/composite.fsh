@@ -18,8 +18,8 @@ vec2 fragCoord = texCoord * Resolution;
 void main()
 {
 	vec4 color = texture2D(colortex0, texCoord);
-	float gray = length(color.rgb);
+	float gray = pow(length(color.rgb), 0.5);
 	gl_FragData[0] = color;
 	gl_FragData[1] = vec4(gray);
-	gl_FragData[2] = vec4(texelFetch(colortex4, ivec2(fragCoord), 0).xyz, 1.0);
+	gl_FragData[2] = vec4(texelFetch(colortex4, ivec2(fragCoord), 0).rgb, 1.0);
 }

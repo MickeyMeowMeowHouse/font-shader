@@ -9,14 +9,17 @@ uniform sampler2D colortex5;
 uniform sampler2D colortex6;
 uniform sampler2D colortex7;
 
+const int RGBA32F = 0;
+const int gaux1Format = RGBA32F;
+
 uniform float viewWidth;
 uniform float viewHeight;
 uniform int frameCounter;
 in vec2 texCoord;
 vec2 Resolution = vec2(viewWidth, viewHeight);
 vec2 fragCoord = texCoord * Resolution;
-const ivec2 CharSize = ivec2(16, 16);
-const ivec2 CharArrange = ivec2(16, 16);
+const ivec2 CharSize = ivec2(12, 12);
+const ivec2 CharArrange = ivec2(138, 49);
 ivec2 TextMode = ivec2(Resolution) / CharSize;
 ivec2 BlockDim = ivec2(Resolution) / TextMode;
 ivec2 BlockId2 = ivec2(fragCoord) / TextMode;
@@ -27,7 +30,7 @@ ivec2 CharPos = ivec2(mod(fragCoord, vec2(TextMode)));
 float CharArea = float(CharSize.x * CharSize.y);
 
 #define MIN_CHAR 0
-#define MAX_CHAR 255
+#define MAX_CHAR 6762
 
 bool CharBlackList(int CharCode)
 {
@@ -86,7 +89,8 @@ void main()
 	}
 
 	gl_FragData[0] = texture2D(colortex0, texCoord);
-	gl_FragData[1] = vec4(float(MaxScoreChar) / float(MAX_CHAR), ConvMaxScore / CharArea, float(MAX_CHAR) / 255.0, 0.0);
-	gl_FragData[2] = texelFetch(colortex2, ivec2(fragCoord), 0);
-	gl_FragData[3] = texture2D(colortex1, texCoord);
+	gl_FragData[1] = texture2D(colortex1, texCoord);
+	gl_FragData[2] = texture2D(colortex2, texCoord);
+	gl_FragData[3] = texture2D(colortex3, texCoord);
+	gl_FragData[4] = vec4(float(MaxScoreChar), ConvMaxScore, 0.0, 0.0);
 }

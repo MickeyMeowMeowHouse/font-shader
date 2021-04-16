@@ -9,13 +9,16 @@ uniform sampler2D colortex5;
 uniform sampler2D colortex6;
 uniform sampler2D colortex7;
 
+const int RGBA32F = 0;
+const int gaux1Format = RGBA32F;
+
 uniform float viewWidth;
 uniform float viewHeight;
 in vec2 texCoord;
 vec2 Resolution = vec2(viewWidth, viewHeight);
 vec2 fragCoord = texCoord * Resolution;
-const ivec2 CharSize = ivec2(16, 16);
-const ivec2 CharArrange = ivec2(16, 16);
+const ivec2 CharSize = ivec2(12, 12);
+const ivec2 CharArrange = ivec2(138, 49);
 ivec2 TextMode = ivec2(Resolution) / CharSize;
 ivec2 BlockDim = ivec2(Resolution) / TextMode;
 ivec2 BlockId2 = ivec2(fragCoord) / TextMode;
@@ -49,11 +52,12 @@ void main()
     for(int i = 0; i < BlockCount; i++)
     {
         ivec2 BlockPos = ivec2(i % BlockDim.x, i / BlockDim.x);
-        vec4 BlockData = texelFetch(colortex1, ivec2(BlockPos * TextMode + TextScreenPos), 0);
+        vec4 BlockData = texelFetch(colortex4, ivec2(BlockPos * TextMode + TextScreenPos), 0);
         if(BlockData.y > CharScore)
         {
             CharScore = BlockData.y;
-            CharCode = int(BlockData.x * (BlockData.z * 255.0));
+            // CharCode = int(BlockData.x * (BlockData.z * 255.0));
+            CharCode = int(BlockData.x);
             IsInverted = (int(BlockData.w) != 0);
         }
     }
@@ -65,6 +69,4 @@ void main()
     	CharSample = vec4(1) - CharSample;
     }
     gl_FragColor = CharSample * LimitColor(GetOrigColor(), 4);
-
-    // gl_FragColor = texelFetch(colortex0, ivec2(fragCoord), 0);
 }
