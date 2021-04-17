@@ -11,6 +11,7 @@ uniform sampler2D colortex7;
 
 const int RGBA32F = 0;
 const int gaux1Format = RGBA32F;
+/* RENDERTARGETS: 0 */
 
 uniform float viewWidth;
 uniform float viewHeight;
@@ -46,7 +47,6 @@ vec4 LimitColor(vec4 Color, int Depth)
 
 void main()
 {
-	bool IsInverted = false;
     int CharCode = 0;
     float CharScore = -10000.0;
     for(int i = 0; i < BlockCount; i++)
@@ -57,15 +57,10 @@ void main()
         {
             CharScore = BlockData.y;
             CharCode = int(BlockData.x);
-            IsInverted = (int(BlockData.w) != 0);
         }
     }
     
     ivec2 CharTexCoord = ivec2(fragCoord) % CharSize;
     vec4 CharSample = SampleChar(colortex2, CharCode, CharTexCoord);
-    if(IsInverted)
-    {
-    	CharSample = vec4(1) - CharSample;
-    }
     gl_FragColor = CharSample * LimitColor(GetOrigColor(), 4);
 }
