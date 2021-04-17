@@ -1,20 +1,14 @@
 #version 130
 
-uniform sampler2D colortex0;
 uniform sampler2D colortex1;
 uniform sampler2D colortex2;
-uniform sampler2D colortex3;
-uniform sampler2D colortex4;
-uniform sampler2D colortex5;
-uniform sampler2D colortex6;
-uniform sampler2D colortex7;
 
 const int RGBA32F = 0;
 const int gaux1Format = RGBA32F;
+/* RENDERTARGETS: 2, 4 */
 
 uniform float viewWidth;
 uniform float viewHeight;
-uniform int frameCounter;
 in vec2 texCoord;
 vec2 Resolution = vec2(viewWidth, viewHeight);
 vec2 fragCoord = texCoord * Resolution;
@@ -31,19 +25,6 @@ float CharArea = float(CharSize.x * CharSize.y);
 
 #define MIN_CHAR 0
 #define MAX_CHAR 6762
-
-bool CharBlackList(int CharCode)
-{
-	switch(CharCode)
-	{
-	default:
-		return false;
-	// case 176:
-	// case 177:
-	// case 178:
-		return true;
-	}
-}
 
 void main()
 {
@@ -77,7 +58,7 @@ void main()
 			}
 		}
 
-		if(int(CharScore) != int(CharArea) && !CharBlackList(CharCode))
+		if(int(CharScore) != int(CharArea))
 		{
 			ConvScore /= sqrt(CharScore);
 	        if (ConvScore >= ConvMaxScore)
@@ -88,9 +69,6 @@ void main()
 	    }
 	}
 
-	gl_FragData[0] = texture2D(colortex0, texCoord);
-	gl_FragData[1] = texture2D(colortex1, texCoord);
 	gl_FragData[2] = texture2D(colortex2, texCoord);
-	gl_FragData[3] = texture2D(colortex3, texCoord);
 	gl_FragData[4] = vec4(float(MaxScoreChar), ConvMaxScore, 0.0, 0.0);
 }
