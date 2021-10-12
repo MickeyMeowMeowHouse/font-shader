@@ -69,6 +69,6 @@ void main()
 	    }
 	}
 
-	gl_FragData[2] = texture2D(colortex2, texCoord);
+	gl_FragData[2] = texture(colortex2, texCoord);
 	gl_FragData[4] = vec4(float(MaxScoreChar), ConvMaxScore, 0.0, 0.0);
 }

@@ -13,7 +13,7 @@ vec2 fragCoord = texCoord * Resolution;
 
 void main()
 {
-	vec4 color = texture2D(colortex0, texCoord);
+	vec4 color = texture(colortex0, texCoord);
 	float gray = pow(length(color.rgb), 0.8) * 0.7 + 0.3;
 	gl_FragData[0] = color;
 	gl_FragData[1] = vec4(gray);
