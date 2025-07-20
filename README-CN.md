@@ -20,7 +20,7 @@
 
 ## 效果示例
 
-![演示视频](https://youtu.be/dGv6yr2_Cm0)
+[演示视频](https://youtu.be/dGv6yr2_Cm0)
 
 ## 截图展示
 
