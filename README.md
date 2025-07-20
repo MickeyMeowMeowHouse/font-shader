@@ -1,5 +1,7 @@
 # Text Mode Renderer
 
+[中文](README-CN.md) | English
+
 This is a **[Minecraft](https://minecraft.net/) shader pack** which uses fonts to render the game scene. You need [optifine](https://optifine.net/home) to enable this shader.
 
 Try it for fun, be careful of your eyes, **don't vomit if there's no toilets near you**.
